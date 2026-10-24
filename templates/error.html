@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ code }}{% endblock %}
+{% block content %}
+<section class="login-wrap">
+  <div class="eyebrow">{{ code }}</div>
+  <h1>{{ heading }}</h1>
+  <p>{{ message }}</p>
+  <a class="button primary" href="{{ url_for('home') }}">← Back to event page</a>
+</section>
+{% endblock %}

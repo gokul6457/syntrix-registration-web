@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Team Registration{% endblock %}
+{% block content %}
+<section class="form-hero"><div class="eyebrow">OFFICIAL TEAM ENTRY</div><h1>Register your<br><em>dream team.</em></h1><p>Register one participant or a team of two. Participant 2 is optional. Maximum 50 teams.</p>
+{% if registration_full %}<div class="limit-banner"><strong>TEAM LIMIT HIT</strong><span>All 50 team slots are filled. Registrations are now closed. Thank you for your interest!</span></div>{% else %}<div class="slots-note">{{ max_teams - registered_teams }} of {{ max_teams }} team slots remaining</div>{% endif %}</section>
+<section class="registration-layout">
+<form class="registration-form" method="post" enctype="multipart/form-data" action="{{ url_for('register') }}">
+  {% if registration_full %}<fieldset disabled class="closed-form">{% endif %}
+  <div class="form-section-title"><span>01</span><div><h2>Team details</h2><p>Choose a unique team name.</p></div></div>
+  <label>Team name <input class="uppercase-input" name="team_name" value="{{ data.get('team_name','') }}" placeholder="e.g. NEURAL NINJAS" required maxlength="80" autocapitalize="characters"></label>
+  <div class="form-section-title"><span>02</span><div><h2>Participant 1</h2><p>Team leader / first member</p></div></div>
+  <div class="form-grid">
+    <label>Full name <input class="uppercase-input" name="participant1_name" value="{{ data.get('participant1_name','') }}" required autocomplete="name" autocapitalize="characters"></label>
+    <label>Register number <input class="uppercase-input" name="participant1_regno" value="{{ data.get('participant1_regno','') }}" required autocapitalize="characters"></label>
+    <label>Department / stream <select name="participant1_department" required><option value="">Select department</option>{% for stream in streams %}<option value="{{ stream }}" {% if data.get('participant1_department') == stream %}selected{% endif %}>{{ stream }}</option>{% endfor %}</select></label>
+    <label>Email address <input type="email" name="participant1_email" value="{{ data.get('participant1_email','') }}" required autocomplete="email"></label>
+    <label>Phone number <input type="tel" name="participant1_phone" value="{{ data.get('participant1_phone','') }}" required pattern="[0-9+() -]{7,20}" placeholder="Mobile number"></label>
+  </div>
+  <div class="form-section-title"><span>03</span><div><h2>Participant 2 <small>(Optional)</small></h2><p>Add a teammate if you have one. Leave all fields blank to register solo.</p></div></div>
+  <div class="form-grid">
+    <label>Full name <input class="uppercase-input" name="participant2_name" value="{{ data.get('participant2_name','') }}" autocapitalize="characters"></label>
+    <label>Register number <input class="uppercase-input" name="participant2_regno" value="{{ data.get('participant2_regno','') }}" autocapitalize="characters"></label>
+    <label>Department / stream <select name="participant2_department"><option value="">Select department</option>{% for stream in streams %}<option value="{{ stream }}" {% if data.get('participant2_department') == stream %}selected{% endif %}>{{ stream }}</option>{% endfor %}</select></label>
+    <label>Email address <input type="email" name="participant2_email" value="{{ data.get('participant2_email','') }}"></label>
+    <label>Phone number <input type="tel" name="participant2_phone" value="{{ data.get('participant2_phone','') }}" pattern="[0-9+() -]{7,20}" placeholder="Mobile number"></label>
+  </div>
+  <div class="form-section-title"><span>04</span><div><h2>Eligibility & setup</h2><p>Confirm the team details.</p></div></div>
+  <div class="form-grid">
+    <label>Year of study <select name="year_of_study" required><option value="">Select year</option><option value="Second Year" {% if data.get('year_of_study') == 'Second Year' %}selected{% endif %}>Second Year</option><option value="Other" {% if data.get('year_of_study') == 'Other' %}selected{% endif %}>Other</option></select></label>
+    <label>Computer system preference <select name="system_preference" required><option value="">Select preference</option><option value="I can bring my own laptop" {% if data.get('system_preference') == 'I can bring my own laptop' %}selected{% endif %}>I can bring my own laptop</option><option value="Please provide a computer system" {% if data.get('system_preference') == 'Please provide a computer system' %}selected{% endif %}>Please provide a computer system</option></select></label>
+  </div>
+  <div class="form-section-title"><span>05</span><div><h2>Round 4 & payment proof</h2><p>Scan the payment QR code, complete the payment, and upload the payment screenshot.</p></div></div>
+  <div class="payment-scanner-card">
+    <h3>ROUND 4 — PAYMENT QR CODE</h3>
+    <img src="{{ url_for('static', filename='payment_scanner.jpeg') }}" alt="Payment QR code">
+    <p>Scan this QR code with your payment app, then upload a screenshot of your completed payment.</p>
+  </div>
+  <label>Upload payment screenshot (PNG, JPG, JPEG, WEBP; max 4 MB)
+    <input type="file" name="payment_screenshot" id="payment_screenshot" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" required>
+  </label>
+  <div id="payment-preview" class="payment-preview" hidden><img id="payment-preview-image" alt="Selected payment screenshot preview"><span id="payment-preview-name"></span></div>
+  <div class="consent"><input type="checkbox" required id="confirm"><label for="confirm">I confirm that the participant details provided are correct and that our entry meets the event eligibility requirements.</label></div>
+  {% if not registration_full %}<button class="button primary submit-button" type="submit">Submit Registration ↗</button>{% else %}<button class="button primary submit-button" type="button" disabled>Team Limit Hit</button>{% endif %}
+  <p class="privacy-note">Registration details will be available to event organizers for coordination and eligibility checks.</p>
+{% if registration_full %}</fieldset>{% endif %}
+</form>
+<aside class="registration-aside"><div class="aside-number">01 — 04</div><h3>Before you hit submit</h3><ul><li>One team can have 1 or 2 participants.</li><li>Every listed participant must be a second-year student in an eligible stream.</li><li>Enter register numbers carefully; duplicate entries are blocked.</li><li>Registration closes automatically after 50 teams.</li><li>Bring your own laptop or request a computer from the organizers.</li></ul><div class="aside-note"><strong>Need help?</strong><p>Contact your event coordinator for eligibility or registration corrections.</p></div></aside>
+</section>
+<script>
+(function () {
+  document.querySelectorAll('.uppercase-input').forEach(function (field) {
+    field.addEventListener('input', function () {
+      var start = field.selectionStart, end = field.selectionEnd;
+      field.value = field.value.toUpperCase();
+      try { field.setSelectionRange(start, end); } catch (e) {}
+    });
+    field.value = field.value.toUpperCase();
+  });
+  var input = document.getElementById('payment_screenshot');
+  if (input) input.addEventListener('change', function () {
+    var file = input.files && input.files[0];
+    var wrap = document.getElementById('payment-preview');
+    if (!file) { wrap.hidden = true; return; }
+    document.getElementById('payment-preview-name').textContent = file.name;
+    if (file.size > 4 * 1024 * 1024) { input.setCustomValidity('File must be 4 MB or smaller.'); input.reportValidity(); wrap.hidden = true; return; }
+    input.setCustomValidity('');
+    if (file.type.startsWith('image/')) {
+      document.getElementById('payment-preview-image').src = URL.createObjectURL(file);
+      wrap.hidden = false;
+    } else { wrap.hidden = true; }
+  });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Registration Submitted{% endblock %}
+{% block content %}
+<section class="form-hero success-hero">
+  <div class="eyebrow">SYNTRIX REGISTRATION</div>
+  <h1>Registration<br><em>submitted.</em></h1>
+  <p>Your registration and payment screenshot have been received. Payment status remains pending until the organizers verify it.</p>
+  <div class="whatsapp-card">
+    <h2>Join the SYNTRIX WhatsApp Community</h2>
+    <p>Click below to open WhatsApp and join the official event community for updates and announcements.</p>
+    {% if whatsapp_url and whatsapp_url.startswith('https://chat.whatsapp.com/') %}
+      <a class="button primary" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">Join WhatsApp Community ↗</a>
+    {% else %}
+      <p class="organizer-warning"><strong>Organizer setup required:</strong> the WhatsApp Community invite link has not been configured yet.</p>
+    {% endif %}
+    <p class="privacy-note">Keep your registration details safe. Do not share payment screenshots publicly.</p>
+  </div>
+  <a class="button secondary" href="{{ url_for('home') }}">Back to home</a>
+</section>
+{% endblock %}

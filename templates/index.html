@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="pulse"></span> FOUR ROUNDS. ONE TEAM. BIG IDEAS.</div>
+    <h1>Think. Code.<br><em>Survive.</em></h1>
+    <p class="hero-lead">A hands-on technical event where coding, machine learning, AI investigation and web development meet teamwork.</p>
+    <div class="hero-actions"><a class="button secondary" href="#rounds">Explore the rounds</a></div>
+  </div>
+  <div class="hero-art" aria-label="Decorative event graphic">
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="core"><span>&lt;/&gt;</span><small>BUILD / LEARN / WIN</small></div>
+    <div class="float-card card-code"><b>01</b><span>CODE BINGO</span><small>Python · C · Java</small></div>
+    <div class="float-card card-ml"><b>02</b><span>SQL SCRIPT GAME</span><small>Answer 20 SQL questions</small></div>
+    <div class="float-card card-ai"><b>03</b><span>AI FORENSICS</span><small>Find the missing file</small></div>
+    <div class="float-card card-web"><b>04</b><span>DEBUG TO SURVIVE</span><small>Collect letters to qualify</small></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div><strong>04</strong><span>CHALLENGING ROUNDS</span></div><div><strong>02</strong><span>MAXIMUM MEMBERS PER TEAM</span></div><div><strong>30 <small>MIN</small></strong><span>TIME PER ROUND</span></div><div><strong>50</strong><span>MAXIMUM TEAMS</span></div>
+</section>
+
+<section class="section" id="rounds">
+  <div class="section-heading"><div><div class="eyebrow">THE CHALLENGE</div><h2>Four rounds.<br><em>Four ways to level up.</em></h2></div><p>Each round builds practical skills through a team-based challenge. Read the rules before the event and come ready to think.</p></div>
+  <div class="round-grid">
+    <article class="round-card"><div class="round-top"><span class="round-number">01</span><span class="tag">PROGRAMMING</span></div><h3>Code Bingo</h3><p>Compete by solving basic Python, C and Java questions, then match your answers on the Bingo grid. Complete a valid line using coding knowledge, logic and speed.</p></article>
+    <article class="round-card"><div class="round-top"><span class="round-number">02</span><span class="tag">SQL</span></div><h3>Script Game</h3><p>Face 20 SQL questions in a glass-bridge challenge. Choose a path with each answer: correct answers lead to safe jumps, while wrong answers break the glass. Successful jumps pull the virtual rope towards your team.</p></article>
+    <article class="round-card"><div class="round-top"><span class="round-number">03</span><span class="tag">PROMPT ENGINEERING</span></div><h3>AI Forensics: The Missing File</h3><p>Investigate a missing-file mystery by examining digital evidence, hidden clues, emails, reports and images. Use effective prompts and connect the evidence to uncover what happened.</p></article>
+    <article class="round-card featured"><div class="round-top"><span class="round-number">04</span><span class="tag">DEBUGGING</span></div><h3>A Survival Game: Debug to Survive</h3><p>Explore a virtual survival map and solve debugging questions to overcome challenges. Collect the letters revealed along the way and use them to qualify for the final round.</p></article>
+  </div>
+</section>
+
+<section class="section details" id="eligibility">
+  <div class="details-copy"><div class="eyebrow">BEFORE YOU REGISTER</div><h2>Small team.<br><em>Big brain energy.</em></h2><p>Designed for second-year students from eligible CS-related streams. Register with a teammate and provide accurate college details.</p><a class="button primary" href="{{ url_for('register') }}">Start Registration ↗</a></div>
+  <div class="info-list">
+    <div class="info-item"><span class="info-icon">01</span><div><h4>Team size</h4><p>Maximum two participants per team.</p></div></div>
+    <div class="info-item"><span class="info-icon">02</span><div><h4>Eligibility</h4><p>Second-year CSE streams only. Organizers will verify details.</p></div></div>
+    <div class="info-item"><span class="info-icon">03</span><div><h4>Computer system</h4><p>You may bring your own laptop. Otherwise, a computer system will be provided by the organizers.</p></div></div>
+    <div class="info-item"><span class="info-icon">04</span><div><h4>Keep details ready</h4><p>Participant name(s), register number(s), department(s), email address(es) and phone number(s).</p></div></div>
+  </div>
+</section>
+<section class="bottom-cta"><div><div class="eyebrow">READY TO PLAY?</div><h2>Event-ah mudikurom.<br><em>Mass-ah pandrom.</em></h2></div><a class="button light" href="{{ url_for('register') }}">Register Your Team ↗</a></section>
+{% endblock %}

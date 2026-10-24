@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}AI & DS Event{% endblock %} | Event Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">S</span><span>SYNTRIX <small>TECH EVENT</small></span></a>
+  <nav>
+    <a href="{{ url_for('home') }}#rounds">Rounds</a>
+    <a href="{{ url_for('home') }}#eligibility">Eligibility</a>
+    <a class="nav-cta" href="{{ url_for('register') }}">Register Team</a>
+  </nav>
+</header>
+<main>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer><span>Think Smarter. Build Faster. Innovate Together.</span><span>Event portal • Registration data is for organizers only</span></footer>
+</body>
+</html>
